@@ -1,10 +1,12 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import stockReducer from './Stock.store'
+import bolleanReducer from './Bollean.store'
 
 const store = configureStore({
     reducer: {
-        stock: stockReducer
+        stock: stockReducer,
+        bollean: bolleanReducer
     }
 })
 

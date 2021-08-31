@@ -1,12 +1,14 @@
 import React from 'react';
-import {increment, decrement, asyncIncrement, incrementAmount } from './../../app/Stock.store'
-import {RootState} from './../../app/'
+import { increment, decrement, asyncIncrement, incrementAmount } from './../../app/Stock.store'
+import { toggle } from './../../app/Bollean.store'
+import { RootState } from './../../app/'
 import styles from './Counter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 
 export function Counter() {
   const dispatch = useDispatch();
   const stock = useSelector((state: RootState) => state.stock);
+  const boollean = useSelector((state: RootState) => state.bollean);
 
   return (
     <div>
@@ -14,7 +16,7 @@ export function Counter() {
         <button
           className={styles.button}
           aria-label="Decrement value"
-          onClick={() => {dispatch(decrement())}}
+          onClick={() => { dispatch(decrement()) }}
         >
           -
         </button>
@@ -22,10 +24,13 @@ export function Counter() {
         <button
           className={styles.button}
           aria-label="Increment value"
-          onClick={() => {dispatch(increment())}}
+          onClick={() => { dispatch(increment()) }}
         >
           +
         </button>
+      </div>
+      <div className={styles.row}>
+        <span className={styles.value}>{boollean.test ? 'Verdadeiro' : 'Falso'}</span>
       </div>
       <div className={styles.row}>
         <input
@@ -44,6 +49,12 @@ export function Counter() {
           onClick={() => dispatch(asyncIncrement())}
         >
           Add Async
+        </button>
+        <button
+          className={styles.button}
+          onClick={() => dispatch(toggle())}
+        >
+          Toggle Boolean
         </button>
       </div>
     </div>
