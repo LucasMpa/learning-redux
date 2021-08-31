@@ -1,22 +1,12 @@
-import React, { useState } from 'react';
-
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
-  selectCount,
-} from './counterSlice';
+import React from 'react';
+import {increment, decrement, asyncIncrement, incrementAmount } from './../../app/Stock.store'
+import {RootState} from './../../app/'
 import styles from './Counter.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function Counter() {
-  const count = useAppSelector(selectCount);
-  const dispatch = useAppDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
-
-  const incrementValue = Number(incrementAmount) || 0;
+  const dispatch = useDispatch();
+  const stock = useSelector((state: RootState) => state.stock);
 
   return (
     <div>
@@ -24,15 +14,15 @@ export function Counter() {
         <button
           className={styles.button}
           aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
+          onClick={() => {dispatch(decrement())}}
         >
           -
         </button>
-        <span className={styles.value}>{count}</span>
+        <span className={styles.value}>{stock.counter}</span>
         <button
           className={styles.button}
           aria-label="Increment value"
-          onClick={() => dispatch(increment())}
+          onClick={() => {dispatch(increment())}}
         >
           +
         </button>
@@ -41,26 +31,19 @@ export function Counter() {
         <input
           className={styles.textbox}
           aria-label="Set increment amount"
-          value={incrementAmount}
-          onChange={(e) => setIncrementAmount(e.target.value)}
+          value={5}
         />
         <button
           className={styles.button}
-          onClick={() => dispatch(incrementByAmount(incrementValue))}
+          onClick={() => dispatch(incrementAmount(5))}
         >
           Add Amount
         </button>
         <button
           className={styles.asyncButton}
-          onClick={() => dispatch(incrementAsync(incrementValue))}
+          onClick={() => dispatch(asyncIncrement())}
         >
           Add Async
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => dispatch(incrementIfOdd(incrementValue))}
-        >
-          Add If Odd
         </button>
       </div>
     </div>
